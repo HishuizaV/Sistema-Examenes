@@ -8,10 +8,10 @@ package Capa_Cliente;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import AppPackage.AnimationClass;
-import Capa_Negocio.clsAdministrador;
-import Capa_Negocio.clsDocente;
-import Capa_Negocio.clsEstudiante;
+import Capa_Negocio.clsUsuario;
 import diu.swe.habib.JPanelSlider.JPanelSlider;
+import java.awt.Color;
+import java.awt.Cursor;
 import javax.swing.SwingUtilities;
 
 /**
@@ -20,18 +20,14 @@ import javax.swing.SwingUtilities;
  */
 public class Menu_Principal extends javax.swing.JFrame {
 
-    clsEstudiante objEstudiante = new clsEstudiante();
-    clsDocente objDocente = new clsDocente();
-    clsAdministrador objAdministrador = new clsAdministrador();
+    clsUsuario obUsuario;
     Byte numIntentos = 0;
-    public String usuario_e = "";
-    public String usuario_d = "";
-    public String usuario_a = "";
-
+    
     public Menu_Principal() {
         initComponents();
         btnslide1.setLocation(10, 280);
         transparencia();
+        btnLogin.setEnabled(false);
         this.setLocationRelativeTo(null);
     }
 
@@ -81,13 +77,14 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        btnminimize = new javax.swing.JButton();
-        btnclose = new javax.swing.JButton();
         btnsn = new javax.swing.JButton();
         btnin = new javax.swing.JButton();
         btnay = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        btnminimize = new javax.swing.JButton();
+        btnclose = new javax.swing.JButton();
         btnlogo = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanelSlider1 = new diu.swe.habib.JPanelSlider.JPanelSlider();
         jPanel5 = new javax.swing.JPanel();
         btnslide2 = new javax.swing.JButton();
@@ -103,6 +100,8 @@ public class Menu_Principal extends javax.swing.JFrame {
         btnRecordarContraseña = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         jPanelSlider2 = new diu.swe.habib.JPanelSlider.JPanelSlider();
         Slider1 = new javax.swing.JPanel();
         btnLeft = new javax.swing.JButton();
@@ -121,19 +120,90 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 153, 0));
 
+        btnsn.setBackground(new java.awt.Color(255, 153, 0));
+        btnsn.setFont(new java.awt.Font("Goudy Old Style", 1, 28)); // NOI18N
+        btnsn.setText("SOBRE NOSOTROS");
+        btnsn.setBorder(null);
+        btnsn.setBorderPainted(false);
+        btnsn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsnMouseExited(evt);
+            }
+        });
+        btnsn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsnActionPerformed(evt);
+            }
+        });
+
+        btnin.setBackground(new java.awt.Color(255, 153, 0));
+        btnin.setFont(new java.awt.Font("Goudy Old Style", 1, 28)); // NOI18N
+        btnin.setText("INFORMACIÓN");
+        btnin.setBorder(null);
+        btnin.setBorderPainted(false);
+        btnin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btninMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btninMouseExited(evt);
+            }
+        });
+        btnin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btninActionPerformed(evt);
+            }
+        });
+
+        btnay.setBackground(new java.awt.Color(255, 153, 0));
+        btnay.setFont(new java.awt.Font("Goudy Old Style", 1, 28)); // NOI18N
+        btnay.setText("AYUDA");
+        btnay.setBorder(null);
+        btnay.setBorderPainted(false);
+        btnay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnayMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnayMouseExited(evt);
+            }
+        });
+        btnay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1420, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(331, Short.MAX_VALUE)
+                .addComponent(btnsn)
+                .addGap(191, 191, 191)
+                .addComponent(btnin)
+                .addGap(199, 199, 199)
+                .addComponent(btnay)
+                .addGap(130, 130, 130))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnsn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnay, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 610, 1420, 50);
+        jPanel2.setBounds(10, 620, 1420, 40);
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -156,35 +226,6 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         jPanel3.add(btnclose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 10, -1, -1));
 
-        btnsn.setBackground(new java.awt.Color(255, 153, 0));
-        btnsn.setFont(new java.awt.Font("Goudy Old Style", 0, 24)); // NOI18N
-        btnsn.setForeground(new java.awt.Color(255, 255, 255));
-        btnsn.setText("SOBRE NOSOTROS");
-        btnsn.setBorder(null);
-        btnsn.setBorderPainted(false);
-        btnsn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsnActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnsn, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 11, -1, 28));
-
-        btnin.setBackground(new java.awt.Color(255, 153, 0));
-        btnin.setFont(new java.awt.Font("Goudy Old Style", 0, 24)); // NOI18N
-        btnin.setForeground(new java.awt.Color(255, 255, 255));
-        btnin.setText("INFORMACIÓN");
-        btnin.setBorder(null);
-        btnin.setBorderPainted(false);
-        jPanel3.add(btnin, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 11, -1, 28));
-
-        btnay.setBackground(new java.awt.Color(255, 153, 0));
-        btnay.setFont(new java.awt.Font("Goudy Old Style", 0, 24)); // NOI18N
-        btnay.setForeground(new java.awt.Color(255, 255, 255));
-        btnay.setText("AYUDA");
-        btnay.setBorder(null);
-        btnay.setBorderPainted(false);
-        jPanel3.add(btnay, new org.netbeans.lib.awtextra.AbsoluteConstraints(479, 11, -1, 28));
-
         btnlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo_botón_Refrescar.png"))); // NOI18N
         btnlogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,6 +233,11 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnlogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
+
+        jLabel7.setFont(new java.awt.Font("MingLiU_HKSCS-ExtB", 1, 36)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel7.setText("SISTEMA DE EXÁMENES VIRTUALES - SEV");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(10, 0, 1420, 50);
@@ -252,10 +298,28 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         });
         jPanel4.add(btnslide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 50, 50));
+
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
         jPanel4.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 160, -1));
 
         jLabel3.setText("Password:");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+
+        Password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PasswordKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PasswordKeyTyped(evt);
+            }
+        });
         jPanel4.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 110, -1));
 
         btnLogin.setFont(new java.awt.Font("Goudy Old Style", 0, 18)); // NOI18N
@@ -292,6 +356,14 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         });
         jPanel4.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 70, 20));
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(255, 51, 0));
+        jPanel4.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 40, 20));
+
+        lblPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(255, 51, 0));
+        jPanel4.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 40, 20));
 
         jPanelSlider1.add(jPanel4, "card2");
 
@@ -368,8 +440,32 @@ public class Menu_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btncloseActionPerformed
 
+    public void validar(){   
+        if(txtUsuario.getText().isEmpty()){
+            lblUsuario.setText("X");
+            lblUsuario.setForeground(Color.red);
+        }else{
+            lblUsuario.setText("Ok");
+            lblUsuario.setForeground(Color.green);
+        }
+        if(Password.getText().isEmpty()){
+            lblPassword.setText("X");
+            lblPassword.setForeground(Color.red);
+        }else{
+            lblPassword.setText("Ok");
+            lblPassword.setForeground(Color.green);
+        }
+        if(txtUsuario.getText().isEmpty()|| Password.getText().isEmpty()){
+            btnLogin.setEnabled(false);
+        }else{
+            btnLogin.setEnabled(true);
+        }     
+    }
+    
+    
     private void btnsnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsnActionPerformed
-
+        Sobre_Nosotros obj = new Sobre_Nosotros(this,true);
+        obj.setVisible(true);
     }//GEN-LAST:event_btnsnActionPerformed
 
     private void btnlogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoActionPerformed
@@ -405,12 +501,13 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnslide2ActionPerformed
 
     private void btnRecordarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordarContraseñaActionPerformed
-
+        Recordar_Contraseña obj = new Recordar_Contraseña(this, true);
+        obj.setVisible(true);
     }//GEN-LAST:event_btnRecordarContraseñaActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
-        Tipo_Register obj = new Tipo_Register(null, true);
+        Registrar_Usuario obj = new Registrar_Usuario(null, true);
         obj.setVisible(true);
 
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -428,68 +525,94 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRightActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        try {
-            if (objEstudiante.validarEstado(txtUsuario.getText())){
-                // el usuario esta vigente
-                usuario_e = objEstudiante.login(txtUsuario.getText(), Password.getText());
-                if (usuario_e.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Acceso incorrecto, intente nuevamente!!");
-                    numIntentos++;
-                    if (numIntentos >= 3) {
-                        JOptionPane.showMessageDialog(null, "Superó los tres intentos. El sistema se cerrará");
-                        System.exit(0);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, usuario_e + ", Bienvenido al Sistema!");
+        try {     
+                if(numIntentos<3){           
+                    obUsuario = clsUsuario.login(txtUsuario.getText(), Password.getText());
+                    JOptionPane.showMessageDialog(null, obUsuario.getNombre() + ", Bienvenido al Sistema!");
                     this.dispose();
-                    MenuPrincipal_Estudiante obj = new MenuPrincipal_Estudiante(null, true);
-                    obj.setVisible(true);
-                }
-            } else {
-                if (objDocente.validarEstado(txtUsuario.getText())) {
-                    // el usuario esta vigente
-                    usuario_d = objDocente.login(txtUsuario.getText(), Password.getText());
-                    if (usuario_d.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Acceso incorrecto, intente nuevamente!!");
-                        numIntentos++;
-                        if (numIntentos >= 3) {
-                            JOptionPane.showMessageDialog(null, "Superó los tres intentos. El sistema se cerrará");
-                            System.exit(0);
+                        switch (obUsuario.getTipo().getId()) {
+                            case 0:
+                                {
+                                    MenuPrincipal_Administradorx obj = new MenuPrincipal_Administradorx(null, true, obUsuario);
+                                    obj.setVisible(true);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    MenuPrincipal_Docentex obj = new MenuPrincipal_Docentex(null, true, obUsuario);
+                                    obj.setVisible(true);
+                                    break;
+                                }
+                            default:
+                                {
+                                    MenuPrincipal_Estudiante obj = new MenuPrincipal_Estudiante(null, true, obUsuario);
+                                    obj.setVisible(true);
+                                    break;
+                                }
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, usuario_d + ", Bienvenido al Sistema!");
-                        this.dispose();
-                        MenuPrincipal_Docentex obj = new MenuPrincipal_Docentex(null, true);
-                        obj.setVisible(true);
-                    }
-                } else {
-                    usuario_a = objAdministrador.login(txtUsuario.getText(), Password.getText());
-                    if (usuario_a.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Acceso incorrecto, intente nuevamente!!");
-                        numIntentos++;
-                        if (numIntentos >= 3) {
-                            JOptionPane.showMessageDialog(null, "Superó los tres intentos. El sistema se cerrará");
-                            System.exit(0);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, usuario_a + ", Bienvenido al Sistema!");
-                        this.dispose();
-                        MenuPrincipal_Administradorx obj = new MenuPrincipal_Administradorx(null, true);
-                        obj.setVisible(true);
-                    }
-                    JOptionPane.showMessageDialog(null, "Docente no está vigente!");
+                }else{
+                    JOptionPane.showMessageDialog(this, "El número de Intentos ha excedido");
                     System.exit(0);
-                }
-
-            }
-            JOptionPane.showMessageDialog(null, "Estudiante no está vigente!");
-            System.exit(0);
+                }               
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-
+            JOptionPane.showMessageDialog(null, "Error al Iniciar Sesión, verifique si ha ingresado correctamente sus datos");
+            numIntentos++;
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninActionPerformed
+       Informacion obj = new Informacion(this, true);
+       obj.setVisible(true);
+    }//GEN-LAST:event_btninActionPerformed
+
+    private void btnayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnayActionPerformed
+       Ayuda obj = new Ayuda(this, true);
+       obj.setVisible(true);
+    }//GEN-LAST:event_btnayActionPerformed
+
+    private void btnsnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsnMouseEntered
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnsnMouseEntered
+
+    private void btnsnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsnMouseExited
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnsnMouseExited
+
+    private void btninMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninMouseEntered
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btninMouseEntered
+
+    private void btninMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninMouseExited
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btninMouseExited
+
+    private void btnayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnayMouseEntered
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnayMouseEntered
+
+    private void btnayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnayMouseExited
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnayMouseExited
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        validar();
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void PasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyReleased
+        validar();
+    }//GEN-LAST:event_PasswordKeyReleased
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+       if(txtUsuario.getText().length()== 25){
+           evt.consume();
+       }
+    }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void PasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordKeyTyped
+        if(Password.getText().length()== 10){
+           evt.consume();
+       }
+    }//GEN-LAST:event_PasswordKeyTyped
 
     /**
      * @param args the command line arguments
@@ -551,6 +674,7 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -559,6 +683,8 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private diu.swe.habib.JPanelSlider.JPanelSlider jPanelSlider1;
     private diu.swe.habib.JPanelSlider.JPanelSlider jPanelSlider2;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

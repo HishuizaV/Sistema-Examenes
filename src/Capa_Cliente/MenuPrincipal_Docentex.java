@@ -5,7 +5,7 @@
  */
 package Capa_Cliente;
 
-import Capa_Negocio.clsDocente;
+import Capa_Negocio.clsUsuario;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,19 +15,17 @@ import java.util.logging.Logger;
  * @author holce
  */
 public class MenuPrincipal_Docentex extends javax.swing.JDialog {
-        clsDocente objDocente = new clsDocente();
- 
+        public clsUsuario objusuario; 
     
-    public MenuPrincipal_Docentex(java.awt.Frame parent, boolean modal) throws Exception{
+    public MenuPrincipal_Docentex(java.awt.Frame parent, boolean modal, clsUsuario objusuario) throws Exception{
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        ResultSet rsDocente = null;
-        rsDocente = objDocente.capturarDatosinterfaz();
-            lblNombreDocente.setText(rsDocente.getString("nombre"));
-            lblApellidosDocente.setText(rsDocente.getString("apellidos"));
-            lblUsuarioDocente.setText(rsDocente.getString("usuario"));
-            lblCorreDocente.setText(rsDocente.getString("correo"));
+        this.objusuario = objusuario;
+            lblNombreDocente.setText(objusuario.getNombre());
+            lblUsuarioDocente.setText(objusuario.getNickname());
+            lblApellidosDocente.setText(objusuario.getApellido()); 
+            lblCorreDocente.setText(objusuario.getCorreo());
     }
 
     /**
@@ -570,51 +568,7 @@ public class MenuPrincipal_Docentex extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Docentex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Docentex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Docentex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Docentex.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MenuPrincipal_Docentex dialog = new MenuPrincipal_Docentex(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                        @Override
-                        public void windowClosing(java.awt.event.WindowEvent e) {
-                            System.exit(0);
-                        }
-                    });
-                    dialog.setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(MenuPrincipal_Docentex.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnlogo;

@@ -5,10 +5,9 @@
  */
 package Capa_Cliente;
 
-import Capa_Negocio.clsAdministrador;
-import Capa_Negocio.clsDocente;
-import Capa_Negocio.clsEstudiante;
+import Capa_Negocio.clsUsuario;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,21 +19,16 @@ import javax.swing.table.DefaultTableModel;
  * @author holce
  */
 public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
-            clsAdministrador objadministrador =new clsAdministrador();
-            clsDocente objDocente = new clsDocente();
-            clsEstudiante objEstudiante = new clsEstudiante();
-            ResultSet rsDocente = null;
-            ResultSet rsEstudiante = null;
-            
-    public MenuPrincipal_Administradorx(java.awt.Frame parent, boolean modal) throws Exception {
+        private clsUsuario objusuario;
+        
+    public MenuPrincipal_Administradorx(java.awt.Frame parent, boolean modal, clsUsuario objUsuario) throws Exception {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        ResultSet rsAdministrador = null;
-        rsAdministrador = objadministrador.capturarDatos();
-            lblNombresAdministrador.setText(rsAdministrador.getString("nombre"));
-            lblapellidosAdministrador.setText(rsAdministrador.getString("apellidos"));
-            lblUsuarioAdministrador.setText(rsAdministrador.getString("usuario"));
+        this.objusuario=objUsuario;
+            lblNombresAdministrador.setText(objusuario.getNombre());
+            lblapellidosAdministrador.setText(objusuario.getApellido());        
+            lblUsuarioAdministrador.setText(objusuario.getNickname());
     }
 
     /**
@@ -50,6 +44,7 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnlogo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -104,6 +99,8 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
         btnModificarEstudiante = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         lblcodigoDocente = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        lblcodigoEstudiante = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -124,6 +121,14 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
             }
         });
         jPanel3.add(btnlogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 50));
+
+        jButton1.setText("Cerrar Sesión");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1243, 10, 120, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 153, 0));
 
@@ -494,14 +499,14 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
             }
         });
 
-        btnModificarEstadoDocente.setText("Modificar");
+        btnModificarEstadoDocente.setText("Dar de Alta");
         btnModificarEstadoDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarEstadoDocenteActionPerformed(evt);
             }
         });
 
-        btnModificarEstudiante.setText("Modificar");
+        btnModificarEstudiante.setText("Dar de Alta");
         btnModificarEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarEstudianteActionPerformed(evt);
@@ -513,36 +518,17 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
 
         lblcodigoDocente.setText("???");
 
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel19.setText("Código:");
+
+        lblcodigoEstudiante.setText("???");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel21)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblUsuarioEstudiante)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNombreEstudiante)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminarEstudiante)
-                            .addComponent(btnModificarEstudiante))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnLimpiarEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDardeBajaEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(34, 34, 34))))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,11 +549,6 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblcodigoDocente)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
                         .addComponent(lblusuarioDocente)
@@ -579,14 +560,48 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblnombreDocente)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnEliminarDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnModificarEstadoDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(23, 23, 23)
+                                        .addComponent(lblcodigoDocente))
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnEliminarDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnModificarEstadoDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnLimpiarDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnDardeBajaDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(34, 34, 34))))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(23, 23, 23)
+                        .addComponent(lblcodigoEstudiante)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblUsuarioEstudiante)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNombreEstudiante)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminarEstudiante)
+                            .addComponent(btnModificarEstudiante))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnLimpiarEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDardeBajaEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34))))
         );
         jPanel7Layout.setVerticalGroup(
@@ -634,7 +649,11 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(lblUsuarioEstudiante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(lblcodigoEstudiante))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminarEstudiante)
                     .addComponent(btnDardeBajaEstudiante))
@@ -666,23 +685,21 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -691,7 +708,7 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
@@ -700,10 +717,10 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -721,72 +738,69 @@ public class MenuPrincipal_Administradorx extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void listarDocente(){
-         Vector registro;
+        Vector registro;
         DefaultTableModel modelo = new DefaultTableModel();  
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellidos");
-        modelo.addColumn("Usuario");
+        modelo.addColumn("NickName");
         modelo.addColumn("Contraseña");
-        modelo.addColumn("Universidad");
         modelo.addColumn("Estado");
         modelo.addColumn("Correo");
         modelo.addColumn("Telefono");
+        modelo.addColumn("Tipo");
         try{
-            rsDocente=objDocente.capturarDatosTabla();
-            while(rsDocente.next()){
+            ArrayList<clsUsuario> lista = clsUsuario.capturarDatos(1);           
+            for (clsUsuario usuario : lista) {
                 registro = new Vector();
-                registro.add(0, rsDocente.getString("codigo"));
-                registro.add(1, rsDocente.getString("nombre"));
-                registro.add(2, rsDocente.getString("apellidos"));
-                registro.add(3, rsDocente.getString("usuario"));
-                registro.add(4, rsDocente.getString("contraseña"));
-                registro.add(5, rsDocente.getString("universidad"));
-                registro.add(6, rsDocente.getString("estado"));
-                registro.add(7, rsDocente.getString("correo"));
-                registro.add(8, rsDocente.getString("telefono")); 
-                modelo.addRow(registro);
-            }
-            tblDocente.setModel(modelo); 
+                    registro.add(0, usuario.getCodigo());
+                    registro.add(1, usuario.getNombre());
+                    registro.add(2, usuario.getApellido());
+                    registro.add(3, usuario.getNickname());
+                    registro.add(4, usuario.getContraseña());
+                    registro.add(5, usuario.isEstado());
+                    registro.add(6, usuario.getCorreo());
+                    registro.add(7, usuario.getTelefono());
+                    registro.add(8, usuario.getTipo().getDescripcion());
+                    modelo.addRow(registro);  
+            }        
+                tblDocente.setModel(modelo);
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-
 }
    
-    private void listarEstudiante(){
-    
-    Vector registro;
+    private void listarEstudiante(){    
+        Vector registro;
         DefaultTableModel modelo = new DefaultTableModel();  
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellidos");
-        modelo.addColumn("Usuario");
+        modelo.addColumn("NickName");
         modelo.addColumn("Contraseña");
         modelo.addColumn("Estado");
-        modelo.addColumn("Universidad");
         modelo.addColumn("Correo");
         modelo.addColumn("Telefono");
+        modelo.addColumn("Tipo");
         try{
-            rsEstudiante=objEstudiante.capturarDatostabla();
-            while(rsEstudiante.next()){
+            ArrayList<clsUsuario> lista = clsUsuario.capturarDatos(2);           
+            for (clsUsuario usuario : lista) {
                 registro = new Vector();
-                registro.add(0, rsEstudiante.getString("codigo"));
-                registro.add(1, rsEstudiante.getString("nombre"));
-                registro.add(2, rsEstudiante.getString("apellidos"));
-                registro.add(3, rsEstudiante.getString("usuario"));
-                registro.add(4, rsEstudiante.getString("contraseña"));
-                registro.add(5, rsEstudiante.getString("estado"));
-                registro.add(6, rsEstudiante.getString("universidad"));
-                registro.add(7, rsEstudiante.getString("correo"));
-                registro.add(8, rsEstudiante.getString("telefono")); 
-                modelo.addRow(registro);
-            }
-            tblEstudiante.setModel(modelo); 
+                    registro.add(0, usuario.getCodigo());
+                    registro.add(1, usuario.getNombre());
+                    registro.add(2, usuario.getApellido());
+                    registro.add(3, usuario.getNickname());
+                    registro.add(4, usuario.getContraseña());
+                    registro.add(5, usuario.isEstado());
+                    registro.add(6, usuario.getCorreo());
+                    registro.add(7, usuario.getTelefono());
+                    registro.add(8, usuario.getTipo().getDescripcion());
+                    modelo.addRow(registro);  
+            }        
+                tblEstudiante.setModel(modelo);
         }catch(Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
-        }
-    
+        }    
     }
 
     private void btnlistarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarDocenteActionPerformed
@@ -803,12 +817,14 @@ private void listarDocente(){
         txtCodigoDocente.setText("");
         lblnombreDocente.setText("");
         lblusuarioDocente.setText("");
+        lblcodigoDocente.setText("");
         txtCodigoDocente.requestFocus();
     }
     private void limpiarControlesEstudiante(){
         txtCodigoEstudiante.setText("");
         lblNombreEstudiante.setText("");
         lblUsuarioEstudiante.setText("");
+        lblcodigoEstudiante.setText("");
         txtCodigoEstudiante.requestFocus();
     }
     
@@ -817,19 +833,11 @@ private void listarDocente(){
             if(txtCodigoDocente.getText().equals("") )
             JOptionPane.showMessageDialog(this, "Debe ingresar un codigo a buscar");
             else{
-                rsDocente = objDocente.buscarDocente(txtCodigoDocente.getText());
-                if( rsDocente.next() )
-                {
-                    lblnombreDocente.setText( rsDocente.getString("nombre") );
-                    lblusuarioDocente.setText( rsDocente.getString("usuario") );
-                    lblcodigoDocente.setText( rsDocente.getString("codigo"));
+                objusuario = clsUsuario.buscarUsuario(Integer.parseInt(txtCodigoDocente.getText()),1);
+                    lblnombreDocente.setText( objusuario.getNombre() );
+                    lblusuarioDocente.setText( objusuario.getNickname() );
+                    lblcodigoDocente.setText( String.valueOf(objusuario.getCodigo()));                
                 }
-                else
-                {
-                    JOptionPane.showMessageDialog(this, "Codigo de Docente no existe!");
-                    limpiarControlesDocente();
-                }
-            }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         } 
@@ -846,17 +854,10 @@ private void listarDocente(){
             if(txtCodigoEstudiante.getText().equals("") )
             JOptionPane.showMessageDialog(this, "Debe ingresar un codigo a buscar");
             else{
-                rsEstudiante = objEstudiante.buscarEstudiante(txtCodigoEstudiante.getText());
-                if( rsEstudiante.next() )
-                {
-                    lblNombreEstudiante.setText( rsEstudiante.getString("nombre") );
-                    lblUsuarioEstudiante.setText( rsEstudiante.getString("usuario") );
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(this, "Codigo de Estudiante no existe!");
-                    limpiarControlesEstudiante();
-                }
+                objusuario = clsUsuario.buscarUsuario(Integer.parseInt(txtCodigoEstudiante.getText()),2);
+                    lblNombreEstudiante.setText( objusuario.getNombre() );
+                    lblUsuarioEstudiante.setText( objusuario.getNickname() );
+                    lblcodigoEstudiante.setText( String.valueOf(objusuario.getCodigo()));                
             }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -876,15 +877,14 @@ private void listarDocente(){
     }//GEN-LAST:event_btnLimpiarEstudianteActionPerformed
 
     private void btnDardeBajaDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDardeBajaDocenteActionPerformed
-      
-        String informacion;
+    String informacion;
         try{
             if( txtCodigoDocente.getText().equals("") )
             JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de baja");
             else{
-                informacion = "Estas seguro de dar de baja al Docente " + lblnombreDocente.getText();
+                informacion = "Estas seguro de dar de baja al Docente" + lblnombreDocente.getText();
                 if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objDocente.darBajaDocente(txtCodigoDocente.getText() );
+                    objusuario.dardeBajaUsuario(Integer.parseInt(lblcodigoDocente.getText()),1);
                     limpiarControlesDocente();
                     listarDocente();
                 }
@@ -892,39 +892,35 @@ private void listarDocente(){
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
-        
     }//GEN-LAST:event_btnDardeBajaDocenteActionPerformed
 
     private void btnDardeBajaEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDardeBajaEstudianteActionPerformed
-      
-        String informacion;
+      String informacion;
         try{
             if( txtCodigoEstudiante.getText().equals("") )
             JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de baja");
             else{
-                informacion = "Estas seguro de dar de baja al Docente " + lblNombreEstudiante.getText();
+                informacion = "Estas seguro de dar de baja al Docente" + lblNombreEstudiante.getText();
                 if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objEstudiante.darBajaEstudiante(txtCodigoEstudiante.getText() );
+                    objusuario.dardeBajaUsuario(Integer.parseInt(lblcodigoEstudiante.getText()),2);
                     limpiarControlesEstudiante();
                     listarEstudiante();
                 }
             }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }    
+        }
     }//GEN-LAST:event_btnDardeBajaEstudianteActionPerformed
 
     private void btnEliminarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDocenteActionPerformed
-       
-        String informacion;
+    String informacion;
         try{
             if( txtCodigoDocente.getText().equals("") )
-            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo a eliminar!");
+            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para Eliminar");
             else{
-                informacion = "Estas seguro de eliminar al Docente " + lblnombreDocente.getText();
+                informacion = "Estas seguro de dar de baja al Docente" + lblnombreDocente.getText();
                 if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objDocente.eliminarDocente(lblcodigoDocente.getText());
+                    objusuario.eliminarUsuario(Integer.parseInt(lblcodigoDocente.getText()),1);
                     limpiarControlesDocente();
                     listarDocente();
                 }
@@ -932,120 +928,75 @@ private void listarDocente(){
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-      
     }//GEN-LAST:event_btnEliminarDocenteActionPerformed
 
     private void btnEliminarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEstudianteActionPerformed
-        
-        String informacion;
+    String informacion;
         try{
             if( txtCodigoEstudiante.getText().equals("") )
-            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo a eliminar!");
+            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para Eliminar");
             else{
-                informacion = "Estas seguro de eliminar al Estudiante " + lblNombreEstudiante.getText();
+                informacion = "Estas seguro de dar de baja al Docente" + lblNombreEstudiante.getText();
                 if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objEstudiante.eliminarEstudiante(txtCodigoEstudiante.getText() );
-                    limpiarControlesDocente();
-                    listarDocente();
-                }
-            }
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
-        
-        
-    }//GEN-LAST:event_btnEliminarEstudianteActionPerformed
-
-    private void btnModificarEstadoDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEstadoDocenteActionPerformed
-      
-        String informacion;
-        try{
-            if( txtCodigoDocente.getText().equals("") )
-            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de Alta");
-            else{
-                informacion = "Estas seguro de dar de alta al Docente " + lblnombreDocente.getText();
-                if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objDocente.darAltaDocente(txtCodigoDocente.getText() );
-                    limpiarControlesDocente();
-                    listarDocente();
-                }
-            }
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }    
-        
-        
-    }//GEN-LAST:event_btnModificarEstadoDocenteActionPerformed
-
-    private void btnModificarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEstudianteActionPerformed
- 
-        String informacion;
-        try{
-            if( txtCodigoEstudiante.getText().equals("") )
-            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de Alta");
-            else{
-                informacion = "Estas seguro de dar de alta al Estudiante " + lblNombreEstudiante.getText();
-                if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
-                    objEstudiante.darAltaEstudiante(txtCodigoEstudiante.getText() );
+                    objusuario.eliminarUsuario(Integer.parseInt(lblcodigoEstudiante.getText()),2);
                     limpiarControlesEstudiante();
                     listarEstudiante();
                 }
             }
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }  
-        
-        
-        
+        }
+    }//GEN-LAST:event_btnEliminarEstudianteActionPerformed
+
+    private void btnModificarEstadoDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEstadoDocenteActionPerformed
+    String informacion;
+        try{
+            if( txtCodigoDocente.getText().equals("") )
+            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de Alta");
+            else{
+                informacion = "Estas seguro de dar de baja al Docente" + lblnombreDocente.getText();
+                if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
+                    objusuario.dardeAltaUsuario(Integer.parseInt(lblcodigoDocente.getText()),1);
+                    limpiarControlesDocente();
+                    listarDocente();
+                }
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnModificarEstadoDocenteActionPerformed
+
+    private void btnModificarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEstudianteActionPerformed
+    String informacion;
+        try{
+            if( txtCodigoEstudiante.getText().equals("") )
+            JOptionPane.showMessageDialog(this,"Debe ingresar un codigo para dar de Alta");
+            else{
+                informacion = "Estas seguro de dar de Alta al Docente" + lblNombreEstudiante.getText();
+                if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, informacion, "Responde", JOptionPane.YES_NO_OPTION)){
+                    objusuario.dardeAltaUsuario(Integer.parseInt(lblcodigoEstudiante.getText()),2);
+                    limpiarControlesEstudiante();
+                    listarEstudiante();
+                }
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnModificarEstudianteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente cerrar su sesión?",
+                "Cerrar Sesión", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            dispose();
+            Menu_Principal obj = new Menu_Principal();
+            obj.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Administradorx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Administradorx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Administradorx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal_Administradorx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MenuPrincipal_Administradorx dialog = new MenuPrincipal_Administradorx(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                        @Override
-                        public void windowClosing(java.awt.event.WindowEvent e) {
-                            System.exit(0);
-                        }
-                    });
-                    dialog.setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(MenuPrincipal_Administradorx.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarDocente;
@@ -1061,6 +1012,7 @@ private void listarDocente(){
     private javax.swing.JButton btnlistarDocente;
     private javax.swing.JButton btnlistarEstudiante;
     private javax.swing.JButton btnlogo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1071,6 +1023,7 @@ private void listarDocente(){
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -1102,6 +1055,7 @@ private void listarDocente(){
     private javax.swing.JLabel lblapellidos1;
     private javax.swing.JLabel lblapellidosAdministrador;
     private javax.swing.JLabel lblcodigoDocente;
+    private javax.swing.JLabel lblcodigoEstudiante;
     private javax.swing.JLabel lblnombreDocente;
     private javax.swing.JLabel lblnombres;
     private javax.swing.JLabel lblusuarioDocente;

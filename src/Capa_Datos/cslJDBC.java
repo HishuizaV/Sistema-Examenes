@@ -16,75 +16,18 @@ import java.sql.Statement;
  * @author holce
  */
 public class cslJDBC {
-    private String driver, url,user,password;
-    private Connection con;
-    private Statement sent=null;
-    
-    public cslJDBC() {
-        this.driver = "org.postgresql.Driver";
-        this.url = "jdbc:postgresql://localhost:5432/SEV";
-        this.user = "postgres";
-        this.password = "12345";
-        this.con = null;
-    }
+    private static String driver= "org.postgresql.Driver";
+    private static String url="jdbc:postgresql://localhost:5432/SEV";
+    private static String user="postgres";
+    private static String password="12345";       
 
     //Conectar
-    public void conectar() throws Exception{
+    public static Connection conectar() throws Exception{
         try{
            Class.forName(driver);        
-           con=DriverManager.getConnection(url, user, password);
+           return DriverManager.getConnection(url, user, password);
         }catch(ClassNotFoundException | SQLException ex){
             throw new Exception("Error al conectar a la Base de Datos!");
         }
     }
-    //Desconectar
-    public void desconectar() throws Exception{
-        try{
-            //Termina la secuencia en proceso que se està realizando, liberando ciertos recursos utilizados en la secuencia
-           con.close();
-        } catch (SQLException ex) {
-             throw new Exception("Error al desconectar de la BD!");
-        }
-    }
-    
-    //Ejecutar una consulta SELECT
-    public ResultSet consultarBD (String strSQL) throws Exception{
-        ResultSet rs=null;
-        try {
-            conectar();
-            sent = con.createStatement();
-            rs = sent.executeQuery(strSQL);
-            return rs;
-        } catch (Exception e) {
-            throw new Exception("Error al ejecutar consulta");
-        } finally{
-            if (con != null){
-                desconectar();
-            }
-        }
-    }
-    
-    //Ejecutar una instruccion INSERT, UPDATE, DELETE
-    public void ejecutarBD (String strSQL) throws Exception{
-        try {
-            conectar();
-            sent = con.createStatement();
-            sent.executeUpdate(strSQL);
-        } catch (Exception e) {
-            throw new Exception("Error al ejecutar consulta");
-        } finally{
-            if (con != null){
-                desconectar();
-            }
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
